@@ -1,16 +1,18 @@
-FROM robbertkl/base-s6
-MAINTAINER Robbert Klarenbeek <robbertkl@renbeek.nl>
+FROM base-s6:latest
+
+LABEL maintainer="Robert Schumann <rs@n-os.org>"
 
 # Install packages and clean up after apt
 RUN cleaninstall \
     nginx \
-    php5-curl \
-    php5-fpm \
-    php5-gd \
-    php5-mcrypt \
-    php5-mysql \
-    php5-sqlite \
-    php5-xsl
+    php-curl \
+    php-fpm \
+    php-gd \
+    php-mysql \
+    php-sqlite3 \
+    php-mbstring \
+    php-xml \
+    php-zip
 
 # Install composer
 RUN php -r "readfile('https://getcomposer.org/installer');" | php \
@@ -18,7 +20,7 @@ RUN php -r "readfile('https://getcomposer.org/installer');" | php \
 
 # Configure services
 COPY etc /etc
-RUN rm -rf /etc/php5/fpm/pool.d
+RUN rm -rf /etc/php/7.3/fpm/pool.d
 
 # Development workaround (boot2docker)
 RUN usermod -u 1000 -G staff www-data
