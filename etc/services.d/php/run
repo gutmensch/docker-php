@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 variables='${PHP_MEMORY_LIMIT}:${PHP_ERROR_REPORTING}:${TZ}'
-envsubst "${variables}" < php-cli.ini.tmpl > /etc/php/7.3/cli/php.ini
-envsubst "${variables}" < php-fpm.ini.tmpl > /etc/php/7.3/fpm/php.ini
+envsubst "${variables}" < php-cli.ini.tmpl > /etc/php/7.4/cli/php.ini
+envsubst "${variables}" < php-fpm.ini.tmpl > /etc/php/7.4/fpm/php.ini
 
-exec php-fpm7.3
+exec php-fpm7.4

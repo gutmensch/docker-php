@@ -8,11 +8,14 @@ RUN cleaninstall \
     php-curl \
     php-fpm \
     php-gd \
+    php-intl \
     php-mysql \
     php-sqlite3 \
+    php-memcached \
     php-mbstring \
     php-xml \
-    php-zip
+    php-zip \
+    php-pear
 
 # Install composer
 RUN php -r "readfile('https://getcomposer.org/installer');" | php \
@@ -20,7 +23,7 @@ RUN php -r "readfile('https://getcomposer.org/installer');" | php \
 
 # Configure services
 COPY etc /etc
-RUN rm -rf /etc/php/7.3/fpm/pool.d
+RUN rm -rf /etc/php/7.4/fpm/pool.d
 
 # Development workaround (boot2docker)
 RUN usermod -u 1000 -G staff www-data
