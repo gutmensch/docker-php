@@ -1,5 +1,8 @@
 FROM registry.n-os.org:5000/base-s6:0.1.0
 
+# needs to map debian release php version and files in manifest dir
+ARG PHP_VERSION=7.4
+
 LABEL maintainer="Robert Schumann <rs@n-os.org>"
 
 RUN cleaninstall \
@@ -23,7 +26,7 @@ RUN php -r "readfile('https://getcomposer.org/installer');" | php \
 # Configure services
 COPY manifest /
 
-RUN rm -rf /etc/php/7.4/fpm/pool.d \
+RUN rm -rf /etc/php/${PHP_VERSION}/fpm/pool.d \
   && usermod -u 1000 -G staff www-data
 
 # Overridable environment variables
