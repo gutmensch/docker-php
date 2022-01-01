@@ -1,8 +1,7 @@
-FROM base-s6:latest
+FROM registry.n-os.org:5000/base-s6:0.1.0
 
 LABEL maintainer="Robert Schumann <rs@n-os.org>"
 
-# Install packages and clean up after apt
 RUN cleaninstall \
     nginx \
     php-curl \
@@ -22,11 +21,10 @@ RUN php -r "readfile('https://getcomposer.org/installer');" | php \
     && mv composer.phar /usr/local/bin/composer
 
 # Configure services
-COPY etc /etc
-RUN rm -rf /etc/php/7.4/fpm/pool.d
+COPY manifest /
 
-# Development workaround (boot2docker)
-RUN usermod -u 1000 -G staff www-data
+RUN rm -rf /etc/php/7.4/fpm/pool.d \
+  && usermod -u 1000 -G staff www-data
 
 # Overridable environment variables
 ENV DOCUMENT_ROOT=/var/www \
@@ -34,9 +32,9 @@ ENV DOCUMENT_ROOT=/var/www \
     PHP_ERROR_REPORTING="E_ALL & ~E_DEPRECATED & ~E_STRICT"
 
 # Add a default (phpinfo) website
-WORKDIR ${DOCUMENT_ROOT}
-RUN rm -rf *
-COPY index.php ./
+# WORKDIR ${DOCUMENT_ROOT}
+# RUN rm -rf *
+# COPY /usr/index.php ./
 
 # Expose HTTP
 EXPOSE 80

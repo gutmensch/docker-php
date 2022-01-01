@@ -1,6 +1,8 @@
-# robbertkl/php
+# docker-php [![Build Status](https://jenkins.bln.space/buildStatus/icon?job=docker-images%2Fdocker-php%2Fmaster)](https://jenkins.bln.space/job/docker-images/job/docker-php/job/master/)
 
-[![](https://badge.imagelayers.io/robbertkl/php:latest.svg)](https://imagelayers.io/?images=robbertkl/php:latest)
+Forked from [robbertkl/php](https://github.com/robbertkl/docker-php) with original author Robbert Klarenbeek, <robbertkl@renbeek.nl>, thank y  ou!
+
+## Usage
 
 Docker container running PHP-FPM with NGINX:
 
@@ -9,20 +11,13 @@ Docker container running PHP-FPM with NGINX:
 * Logs access to `stdout`, errors to `stderr` (so it shows up in `docker logs`)
 * Contains `composer` to install your app dependencies
 * Exposes port 80 (HTTP)
-* By default, serves a `phpinfo()` page
 
 ## Usage
 
-Either run it directly:
+Either run it directly or extend it:
 
 ```
-docker run -d -v <path-to-code>:/var/www -p 80:80 robbertkl/php
-```
-
-Or extend it:
-
-```
-FROM robbertkl/php
+FROM registry.n-os.org:5000/php:0.1.0
 
 COPY composer.json composer.lock ./
 RUN composer install --no-dev
@@ -40,9 +35,6 @@ You can tweak the behaviour by setting the following environment variables:
 * `PHP_ERROR_REPORTING` (default E_ALL & ~E_DEPRECATED & ~E_STRICT)
 * `TZ` (default unset, which means UTC)
 
-## Authors
-
-* Robbert Klarenbeek, <robbertkl@renbeek.nl>
 
 ## License
 
