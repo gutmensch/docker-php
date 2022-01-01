@@ -35,8 +35,8 @@ ENV DOCUMENT_ROOT=/var/www \
     PHP_ERROR_REPORTING="E_ALL & ~E_DEPRECATED & ~E_STRICT"
 
 # Add a default (phpinfo) website
-# WORKDIR ${DOCUMENT_ROOT}
-# RUN rm -rf *
+WORKDIR ${DOCUMENT_ROOT}
+RUN rm -rf *
 # COPY /usr/index.php ./
 
 # Expose HTTP

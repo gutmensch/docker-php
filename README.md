@@ -17,7 +17,7 @@ Docker container running PHP-FPM with NGINX:
 Either run it directly or extend it:
 
 ```
-FROM registry.n-os.org:5000/php:0.1.0
+FROM registry.n-os.org:5000/php:7.4
 
 COPY composer.json composer.lock ./
 RUN composer install --no-dev
